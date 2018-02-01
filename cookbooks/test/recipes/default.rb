@@ -30,3 +30,37 @@ case node[:platform]
     package 'pkg-config'
     package 'subversion'
 end
+
+
+remote_file '/tmp/sample.war' do
+  source 'https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+file '/tmp/index.php' do
+  content '<html>This is a placeholder for the home page.</html>'
+  mode '0755'
+  owner 'root'
+  group 'root'
+end
+
+cookbook_file '/tmp/test.php' do
+  source 'index.php'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+remote_file '/tmp/master.zip' do
+  source 'https://github.com/yvdvarma/chef-repo/archive/master.zip'
+  action :create
+end
+template '/etc/motd' do
+  source 'motd.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
