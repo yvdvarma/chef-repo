@@ -64,3 +64,27 @@ template '/etc/motd' do
   group 'root'
   mode '0755'
 end
+
+template '/tmp/locavar' do
+  source 'local.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  variables(myname: "Vikram")
+end
+
+package 'ntpd' do
+  action :install
+  ignore_failure true
+end
+
+template '/tmp/somefile' do
+  mode '0755'
+  source 'somefile.erb'
+  #not_if { node['test']['some_value'] }
+  only_if { node['test']['some_value'] }
+end
+
+service 'httpd' do
+  action [:start, :enable]
+end
