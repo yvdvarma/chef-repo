@@ -88,3 +88,20 @@ end
 service 'httpd' do
   action [:start, :enable]
 end
+# run bash script to download and extract
+bash 'download_nodejs' do
+  user 'root'
+  cwd '/tmp'
+  code <<-EOH
+  wget https://nodejs.org/dist/v8.10.0/node-v8.10.0.tar.gz
+  tar -zxf node-v8.10.0.tar.gz
+  EOH
+  not_if { ::File.exist?('/tmp/node-v8.10.0') }
+end
+
+# cron to schdule a task
+cron 'noop' do
+  hour '5'
+  minute '0'
+  command '/bin/true'
+end
