@@ -11,12 +11,17 @@
 #    only_if { index_exists? }
 #  end
 
-  package platform_package_httpd
+#  package platform_package_httpd
 
-  service platform_service_httpd do
-      action [:enable, :start]
-   end
+#  service platform_service_httpd do
+#      action [:enable, :start]
+#   end
   
-  template '/var/www/html/index.html' do
-    source 'index.erb'
-   end
+#  template '/var/www/html/index.html' do
+#    source 'index.erb'
+#   end
+#
+hello_httpd 'greet world' do
+  greeting "Hello"
+  action :create
+end
