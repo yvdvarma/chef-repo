@@ -8,6 +8,7 @@
 
   service 'httpd' do
     action [:start, :enable]
+    only_if { index_exists? }
   end
   
   template '/var/www/html/index.html' do
